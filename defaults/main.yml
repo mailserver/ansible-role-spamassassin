@@ -1,0 +1,24 @@
+---
+# Further variables available in vars/*.yml
+
+os:
+  prefix:
+  logdir: /var/log
+  rundir: /var/run
+
+spamassassin_default_user: "spamd"
+
+spamassassin_default_config:
+  socket_path: "{{os.rundir}}/spamd.sock"
+  socket_mode: "0660"
+  daemon_user: "{{ spamd_user }}"
+  daemon_group: "{{ spamd_group }}"
+  daemon_user_home: /var/lib/spamassassin
+  processor_count: 1
+  pidfile: "{{os.rundir}}/spamd.pid"
+  milter:
+    owner: "{{ milter_user }}"
+    group: "{{ milter_socket_group }}"
+    socket_path: "{{os.rundir}}/milters/spamass.sock"
+    socket_mode: "0660"
+    rejection_threshold: 15

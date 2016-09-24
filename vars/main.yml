@@ -1,0 +1,10 @@
+---
+
+spamd_user: "debian-spamd"
+spamd_group: "debian-spamd"
+milter_user: "spamass-milter"
+
+# Group of the milter socket
+milter_socket_group: "debian-spamd"
+
+

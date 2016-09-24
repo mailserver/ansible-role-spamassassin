@@ -1,0 +1,30 @@
+---
+
+- name: SpamAssassin daemon group exists
+  group:
+    name: "{{ _spamassassin_config.daemon_group }}"
+    state: present
+    system: true
+
+- name: SpamAssassin milter group exists
+  group:
+    name: "{{ _spamassassin_config.milter.group }}"
+    state: present
+    system: true
+
+- name: SpamAssassin daemon user exists and is member of milter group
+  user:
+    name: "{{ _spamassassin_config.daemon_user }}"
+    group: "{{ _spamassassin_config.daemon_group }}"
+    groups: "{{ _spamassassin_config.milter.group }}"
+    home: "{{ _spamassassin_config.daemon_user_home }}"
+    append: true
+    system: true
+
+# ToDo: what's the milter user's home directory?
+- name: SpamAssassin milter user exists
+  user:
+    name: "{{ _spamassassin_config.milter.owner }}"
+    group: "{{ _spamassassin_config.milter.group }}"
+    append: true
+    system: true

@@ -1,0 +1,7 @@
+OPTIONS=" {{ _milter_local_flags }}"
+
+SOCKET="{{ _spamassassin_config.milter.socket_path }}"
+
+# TODO: SOCKETOWNER was postfix:postfix before.
+SOCKETOWNER="{{ _spamassassin_config.milter.owner }}:{{ _spamassassin_config.milter.group }}"
+SOCKETMODE="{{ _spamassassin_config.milter.socket_mode }}"

@@ -1,0 +1,10 @@
+---
+
+spamd_user: "spamd"
+spamd_group: "spamd"
+milter_user: "spamd"
+
+# Group of the milter socket
+milter_socket_group: "spamd"
+
+spamassassin_config_dir: "{{os.prefix}}/etc/mail/spamassassin"

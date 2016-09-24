@@ -1,0 +1,24 @@
+add_header spam Flag _YESNOCAPS_
+add_header all Status _YESNO_, score=_SCORE_ required=_REQD_ tests=_TESTS_ autolearn=_AUTOLEARN_
+add_header all Level _STARS(*)_
+
+required_score 5.0
+
+use_bayes 1
+bayes_auto_learn 0
+bayes_ignore_header X-Bogosity
+bayes_ignore_header X-Spam-Flag
+bayes_ignore_header X-Spam-Status
+
+# Although we shortcircuit SPF_FAIL results, we need this statement
+# to mute sa-compile.
+score SPF_FAIL 1.0
+
+ifplugin Mail::SpamAssassin::Plugin::Shortcircuit
+
+        shortcircuit_spam_score                 100
+
+        shortcircuit            SPF_FAIL        spam
+        tflags                  SPF_FAIL        noautolearn
+
+endif

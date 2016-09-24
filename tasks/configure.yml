@@ -1,0 +1,20 @@
+---
+
+- name: Sync main config
+  template: 
+    src: "{{ item }}.j2" dest
+    dest: "{{ spamassassin_config_dir }}/{{ item }}"
+  with_items:
+    - local.cf
+    - local.pre
+  notify:
+    - restart spamassassin
+    - restart spamass-milter
+ 
+- name: Allow spamass-milter to read spamd socket
+  user:
+    name: "{{ milter_user }}"
+    append: yes
+    groups: "{{ spamd_group }}"
+  notify:
+    - restart spamass-milter

@@ -1,0 +1,34 @@
+---
+
+- name: Install software
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - spamassassin
+    - sudo
+    - spamass-milter
+    - libmail-dkim-perl
+    - libmail-spf-perl
+  notify:
+    - restart spamassassin
+    - restart spamass-milter
+
+- name: Sync etc/default configs
+  template:
+    src: "{{ item.src }}"
+    dest: "/etc/default/{{ item.dest }}"
+  with_items:
+    - { src: "default/spamassassin.j2", dest: "spamassassin" }
+    - { src: "default/spamass-milter.j2", dest: "spamass-milter" }
+  notify:
+    - restart spamassassin
+    - restart spamass-milter
+
+- name: Enable services
+  service:
+    name: "{{ item }}"
+    enabled: yes
+  with_items:
+    - spamassassin
+    - spamass-milter
