@@ -11,10 +11,11 @@
     - restart spamassassin
     - restart spamass-milter
  
+# ToDo: move to prepare task
 - name: Allow spamass-milter to read spamd socket
   user:
-    name: "{{ milter_user }}"
+    name: "{{ _spamassassin_config.milter.owner }}"
     append: yes
-    groups: "{{ spamd_group }}"
+    groups: "{{ _spamassassin_config.daemon_group }}"
   notify:
     - restart spamass-milter

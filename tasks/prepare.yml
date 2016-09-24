@@ -1,5 +1,7 @@
 ---
 
+# ToDo: Verify correctness of user/group memberships
+
 - name: SpamAssassin daemon group exists
   group:
     name: "{{ _spamassassin_config.daemon_group }}"
