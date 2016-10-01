@@ -2,7 +2,7 @@
 
 - name: Sync main config
   template: 
-    src: "{{ item }}.j2" dest
+    src: "{{ item }}.j2"
     dest: "{{ spamassassin_config_dir }}/{{ item }}"
   with_items:
     - local.cf
