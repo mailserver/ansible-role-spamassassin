@@ -14,7 +14,7 @@
     state: present
     system: true
 
-- name: SpamAssassin daemon user exists and is member of milter group
+- name: SpamAssassin daemon user & home directory exists and is member of milter group
   user:
     name: "{{ _spamassassin_config.daemon_user }}"
     group: "{{ _spamassassin_config.daemon_group }}"
@@ -23,6 +23,13 @@
     append: true
     system: true
 
+- name: Assert daemon user home is owned by daemon
+  file:
+    state: directory
+    path: "{{_spamassassin_config.daemon_user_home}}"
+    owner: "{{_spamassassin_config.daemon_user}}"
+    group: "{{_spamassassin_config.daemon_group}}"
+ 
 # ToDo: what's the milter user's home directory?
 - name: SpamAssassin milter user exists
   user:
