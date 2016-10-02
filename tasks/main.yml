@@ -1,13 +1,13 @@
 ---
 
-# Load OS specific configuration
+# Load OS specific configuration variables
 - include_vars: freebsd.yml
   when: ansible_distribution == 'FreeBSD'
 
 - include_vars: debian.yml
   when: (ansible_distribution == 'Debian') or (ansible_distribution == 'Ubuntu')
 
-# Combine Configuration
+# Combine Configuration, default config uses OS-specific configuration loaded above!
 - set_fact: _spamassassin_config="{{ spamassassin_default_config | combine(spamassassin_config, recursive=True) }}"
   no_log: true
 
