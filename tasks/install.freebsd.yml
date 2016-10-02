@@ -13,7 +13,9 @@
     dest: "/etc/rc.conf.d/{{ item }}"
   with_items:
     - spamass_milter
+    - spamd
   notify:
+    - restart spamassassin
     - restart spamass-milter
 
 - name: Enable services
