@@ -1,10 +1,10 @@
 ---
 
 # Load OS specific configuration
-- include: freebsd.yml
+- include_vars: freebsd.yml
   when: ansible_distribution == 'FreeBSD'
 
-- include: debian.yml
+- include_vars: debian.yml
   when: (ansible_distribution == 'Debian') or (ansible_distribution == 'Ubuntu')
 
 # Combine Configuration
