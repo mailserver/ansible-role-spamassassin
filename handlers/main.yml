@@ -7,3 +7,6 @@
   service: name=spamassassin state=restarted
   when: ansible_distribution == 'Debian'
 
+- name: restart spamassassin
+  service: name=sa-spamd state=restarted
+  when: ansible_distribution == 'FreeBSD'
