@@ -13,7 +13,7 @@ spamassassin_default_config:
   daemon_group: "{{ spamd_group }}"
   daemon_user_home: /var/lib/spamassassin
   processor_count: 1
-  pidfile: "{{os.rundir}}/spamd.pid"
+  pidfile: "{{ spamassassin_spamd_pidfile }}"
   milter:
     owner: "{{ milter_user }}"
     group: "{{ milter_socket_group }}"
