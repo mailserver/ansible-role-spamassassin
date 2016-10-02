@@ -13,8 +13,22 @@
 
 # Compute flags for service files
 - set_fact:
-    _spamd_local_flags: "--username {{ _spamassassin_config.daemon_user }} --nouser-config --socketpath={{ _spamassassin_config.socket_path }} --socketowner={{ _spamassassin_config.daemon_user }} --socketgroup={{ _spamassassin_config.daemon_group }} --socketmode={{ _spamassassin_config.socket_mode }} --pidfile {{ _spamassassin_config.pidfile }} --create-prefs --max-children {{ _spamassassin_config.processor_count }} --helper-home-dir ${SAHOME}"
-    _milter_local_flags: "-m -r {{ _spamassassin_config.milter.rejection_threshold }} -- --socket={{ _spamassassin_config.socket_path }}"
+    _spamd_local_flags:
+        --username {{ _spamassassin_config.daemon_user }}
+        --nouser-config 
+        --socketpath={{ _spamassassin_config.socket_path }} 
+        --socketowner={{ _spamassassin_config.daemon_user }} 
+        --socketgroup={{ _spamassassin_config.daemon_group }} 
+        --socketmode={{ _spamassassin_config.socket_mode }} 
+        --pidfile {{ _spamassassin_config.pidfile }} 
+        --create-prefs 
+        --max-children {{ _spamassassin_config.processor_count }}
+        --helper-home-dir {{ _spamassassin_config.daemon_user_home }}
+    _milter_local_flags:
+        -m
+        -r {{ _spamassassin_config.milter.rejection_threshold }}
+        --
+        --socket={{ _spamassassin_config.socket_path }}
   no_log: true
 
 - include: prepare.yml
