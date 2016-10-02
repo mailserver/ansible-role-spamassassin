@@ -1,12 +1,10 @@
 ---
-# Further variables available in vars/*.yml
+# OS-specific variables used here are defined in vars/*.yml
 
 os:
   prefix:
   logdir: /var/log
   rundir: /var/run
-
-spamassassin_default_user: "spamd"
 
 spamassassin_default_config:
   socket_path: "{{os.rundir}}/spamd.sock"
