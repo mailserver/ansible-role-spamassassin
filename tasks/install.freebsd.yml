@@ -4,8 +4,15 @@
   pkgng:
     name: "{{ item }}"
     state: present
+  register: spamassassin_installation
   with_items:
     - spamass-milter
+
+- name: Run sa-update on first run, appears to be necessary to initialize rules
+  command: sa-update
+  when: spamassassin_installation | changed
+  notify:
+    - restart spamassassin
 
 - name: Install rc.conf.d scripts
   template:
@@ -23,4 +30,5 @@
     name: "{{ item }}"
     enabled: yes
   with_items:
+    - sa-spamd
     - spamass-milter
