@@ -21,8 +21,8 @@
         --socketgroup={{ _spamassassin_config.milter.group }} 
         --socketmode={{ _spamassassin_config.socket_mode }}
         --create-prefs 
-        --max-children {{ _spamassassin_config.processor_count }}
-        --helper-home-dir {{ _spamassassin_config.daemon_user_home }}
+        --max-children={{ _spamassassin_config.processor_count }}
+        --helper-home-dir={{ _spamassassin_config.daemon_user_home }}
     _milter_local_flags:
         -m
         -r {{ _spamassassin_config.milter.rejection_threshold }}
