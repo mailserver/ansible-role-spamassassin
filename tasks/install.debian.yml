@@ -22,13 +22,40 @@
     - { src: "default/spamassassin.j2", dest: "spamassassin" }
     - { src: "default/spamass-milter.j2", dest: "spamass-milter" }
   notify:
-    - restart spamassassin
+    #- restart spamassassin
     - restart spamass-milter
 
-- name: Enable services
+- stat:
+    path: /etc/systemd/system/spamassassin.service
+  register: _spamassassin_systemd_service_file
+
+- name: Debian's default spamassassin service is disabled
+  service:
+    name: spamassassin
+    state: stopped
+    enabled: false
+  when: not _spamassassin_systemd_service_file.stat.exists
+
+- name: Spamassassin systemd service is available
+  template:
+    src: "systemd/system/spamassassin.service.j2"
+    dest: "/etc/systemd/system/spamassassin.service"
+    owner: root
+    group: root
+    mode: 0766
+  register: _systemd_service_upload
+  notify:
+    - restart spamassassin
+
+- name: systemd daemon-reload
+  command: systemctl daemon-reload
+  when: _systemd_service_upload.changed
+
+- name: Services are enabled and started
   service:
     name: "{{ item }}"
-    enabled: yes
+    enabled: true
+    state: started
   with_items:
     - spamassassin
     - spamass-milter

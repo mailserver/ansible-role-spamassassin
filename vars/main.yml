@@ -7,5 +7,4 @@ milter_user: "spamass-milter"
 # Group of the milter socket
 milter_socket_group: "debian-spamd"
 
-spamassassin_spamd_pidfile: "{{os.rundir}}/spamd/spamd.pid"
-
+spamassassin_spamd_pidfile: "{{os.rundir}}/spamd.pid"

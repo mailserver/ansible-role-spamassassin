@@ -5,7 +5,6 @@ spamd_group: "debian-spamd"
 milter_user: "spamass-milter"
 
 # Group of the milter socket
-milter_socket_group: "debian-spamd"
+milter_socket_group: "spamass-milter"
 
 spamassassin_config_dir: "{{os.prefix}}/etc/spamassassin"
-

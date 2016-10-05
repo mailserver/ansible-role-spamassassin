@@ -14,11 +14,11 @@
     state: present
     system: true
 
-- name: SpamAssassin daemon user & home directory exists and is member of milter group
+- name: SpamAssassin daemon user & home directory exists
   user:
     name: "{{ _spamassassin_config.daemon_user }}"
     group: "{{ _spamassassin_config.daemon_group }}"
-    groups: "{{ _spamassassin_config.milter.group }}"
+#    groups: "{{ _spamassassin_config.milter.group }}"
     home: "{{ _spamassassin_config.daemon_user_home }}"
     append: true
     system: true
@@ -35,5 +35,13 @@
   user:
     name: "{{ _spamassassin_config.milter.owner }}"
     group: "{{ _spamassassin_config.milter.group }}"
+    groups: "{{ _spamassassin_config.daemon_group }}"
     append: true
     system: true
+
+- name: milter directory exists and is owned by milter group
+  file:
+    path: "{{ _spamassassin_config.milter.socket_path | dirname }}"
+    state: directory
+    group: "{{ _spamassassin_config.milter.group }}"
+    mode: "g=rwx"

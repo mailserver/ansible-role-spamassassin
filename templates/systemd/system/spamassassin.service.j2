@@ -1,0 +1,12 @@
+[Unit]
+Description=Spamassassin
+
+[Service]
+User=root
+Type=simple
+RestartSec=5s
+Restart=on-failure
+ExecStart=/usr/sbin/spamd {{ _spamd_local_flags }}
+
+[Install]
+WantedBy=multi-user.target

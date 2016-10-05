@@ -18,9 +18,8 @@
         --nouser-config 
         --socketpath={{ _spamassassin_config.socket_path }} 
         --socketowner={{ _spamassassin_config.daemon_user }} 
-        --socketgroup={{ _spamassassin_config.daemon_group }} 
-        --socketmode={{ _spamassassin_config.socket_mode }} 
-        --pidfile {{ _spamassassin_config.pidfile }} 
+        --socketgroup={{ _spamassassin_config.milter.group }} 
+        --socketmode={{ _spamassassin_config.socket_mode }}
         --create-prefs 
         --max-children {{ _spamassassin_config.processor_count }}
         --helper-home-dir {{ _spamassassin_config.daemon_user_home }}
